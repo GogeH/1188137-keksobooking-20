@@ -121,7 +121,7 @@ function getRandomData(data) {
   var minIndex = 0;
   var maxIndex = data.length - 1;
 
-  for (var i = 1; i <= COUNT_UNIQUE_OBJECTS ; i++) {
+  for (var i = 1; i <= COUNT_UNIQUE_OBJECTS; i++) {
     var randomData = data.slice(minIndex, getRandomNumber(0, maxIndex));
     result.push(randomData);
   }

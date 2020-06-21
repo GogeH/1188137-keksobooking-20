@@ -1,5 +1,8 @@
 'use strict';
 
+var mapPins = document.querySelector('.map__pins');
+var map = document.querySelector('.map');
+
 var COUNT_UNIQUE_OBJECTS = 8;
 var TYPES = ['palace', 'flat', 'house', 'bungalo'];
 var CHECKIN_TIME_DATA = ['12.00', '13.00', '14.00'];
@@ -38,7 +41,7 @@ function generateUniqueObjects() {
         title: titles[i - 1],
         price: prices[i - 1],
         type: types[i - 1],
-        room: rooms[i - 1],
+        rooms: rooms[i - 1],
         guest: guests[i - 1],
         checkin: checkinData[i - 1],
         checkout: checkoutData[i - 1],
@@ -129,11 +132,6 @@ function getRandomData(data) {
   return result;
 }
 
-generateUniqueObjects();
-
-var map = document.querySelector('.map');
-map.classList.remove('map--faded');
-
 function createNewElement() {
   var pattern = document.querySelector('#pin').content.querySelector('.map__pin');
   var fragment = document.createDocumentFragment();
@@ -147,12 +145,111 @@ function createNewElement() {
 
     fragment.appendChild(newElement);
   }
-  return fragment;
+
+  mapPins.appendChild(fragment);
 }
 
-function renderNewElement() {
-  var mapPins = document.querySelector('.map__pins');
-  mapPins.appendChild(createNewElement());
+function renderNewElements(elements) {
+  var fragment = document.createDocumentFragment();
+
+  elements.forEach(function (element) {
+    fragment.appendChild(element);
+  });
+
+  mapPins.appendChild(fragment);
 }
 
-renderNewElement();
+// Функция выбора варианта для отображения типа жилья
+function defineTypeHouse(homeType) {
+  switch (homeType) {
+    case 'flat':
+      return 'Квартира';
+    case 'bungalo':
+      return 'Бунгало';
+    case 'house':
+      return 'Дом';
+    default:
+    case 'palace':
+      return 'Дворец';
+  }
+};
+
+// Функция отображения фотографий предложения
+function renderPhotos(mockPhotos, node) {
+  var popupPhotos = node.querySelector('.popup__photos');
+  var popupPhoto = node.querySelector('.popup__photo');
+  if (mockPhotos.offer.photos.length === 0) {
+    popupPhotos.classList.add('hidden');
+  }
+
+  popupPhotos.innerHTML = '';
+  for (var j = 0; j < mockPhotos.offer.photos.length; j++) {
+    var popupImg = popupPhoto.cloneNode(true);
+    popupImg.src = mockPhotos.offer.photos[j];
+    popupPhotos.appendChild(popupImg);
+  }
+};
+
+// Функция для отображения или скрытия опций
+function renderFeatures(mockFeatures, node) {
+  var popupFeatures = node.querySelector('.popup__features');
+  var featuresArray = popupFeatures.children;
+
+  for (var i = 0; i < featuresArray.length; i++) {
+    featuresArray[i].classList.add('hidden');
+  }
+
+  for (var j = 0; j < mockFeatures.offer.features.length; j++) {
+    var popupFeature = popupFeatures.querySelector('.popup__feature--' + mockFeatures.offer.features[j]);
+    popupFeature.classList.remove('hidden');
+  }
+}
+
+// Функции отрисовки карточки
+function createAdAndAddToDOM(obj) {
+  var objTemplate = document.querySelector('#card').content.querySelector('.map__card');
+  var objNode = objTemplate.cloneNode(true);
+
+  var popupTitle = objNode.querySelector('.popup__title');
+  var popupTextAdress = objNode.querySelector('.popup__text--address');
+  var popupOfferPrice = objNode.querySelector('.popup__text--price');
+  var popupOfferType = objNode.querySelector('.popup__type');
+  var popupTextCapacity = objNode.querySelector('.popup__text--capacity');
+  var popupTextTime = objNode.querySelector('.popup__text--time');
+
+  var popupDescription = objNode.querySelector('.popup__description');
+  var popupAvatar = objNode.querySelector('.popup__avatar');
+
+  popupTitle.textContent = obj.offer.title;
+  popupTextAdress.textContent = obj.offer.address;
+  popupOfferPrice.textContent = obj.offer.price + '₽/ночь';
+  popupOfferType.textContent = defineTypeHouse(obj.offer.type);
+  popupTextCapacity.textContent = obj.offer.rooms + ' комнаты для ' + obj.offer.guest + ' гостей';
+  popupTextTime.textContent = 'Заезд после ' + obj.offer.checkin + ',' + ' выезд до ' + obj.offer.checkout;
+  popupDescription.textContent = obj.offer.description;
+  popupAvatar.src = obj.author.avatar;
+  renderFeatures(obj, objNode);
+  renderPhotos(obj, objNode);
+
+  return objNode;
+}
+
+// function renderOffers(obj) {
+//   var fragment = document.createDocumentFragment();
+//
+//   fragment.appendChild(createAdAndAddToDOM(obj));
+//   mapPins.after(fragment);
+// }
+
+map.classList.remove('map--faded');
+
+generateUniqueObjects();
+console.log(1)
+var elements = [];
+uniqueObjects.forEach(function (uniqueObject) {
+  var domElement = createAdAndAddToDOM(uniqueObject);
+  elements.push(domElement);
+});
+
+renderNewElements(elements);
+createNewElement();

@@ -172,7 +172,7 @@ function defineTypeHouse(homeType) {
     case 'palace':
       return 'Дворец';
   }
-};
+}
 
 // Функция отображения фотографий предложения
 function renderPhotos(mockPhotos, node) {
@@ -188,7 +188,7 @@ function renderPhotos(mockPhotos, node) {
     popupImg.src = mockPhotos.offer.photos[j];
     popupPhotos.appendChild(popupImg);
   }
-};
+}
 
 // Функция для отображения или скрытия опций
 function renderFeatures(mockFeatures, node) {
@@ -244,8 +244,9 @@ function createAdAndAddToDOM(obj) {
 map.classList.remove('map--faded');
 
 generateUniqueObjects();
-console.log(1)
+
 var elements = [];
+
 uniqueObjects.forEach(function (uniqueObject) {
   var domElement = createAdAndAddToDOM(uniqueObject);
   elements.push(domElement);

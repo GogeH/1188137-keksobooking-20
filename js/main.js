@@ -63,7 +63,7 @@ function generateUniqueObjects() {
 function getAvatars() {
   var avatars = [];
 
-  for (var i = 0; i < COUNT_UNIQUE_OBJECTS; i++) {
+  for (var i = 1; i <= COUNT_UNIQUE_OBJECTS; i++) {
     avatars.push('img/avatars/user' + '0' + i + '.png');
   }
 
@@ -73,7 +73,7 @@ function getAvatars() {
 function getTitles() {
   var titles = [];
 
-  for (var i = 0; i < COUNT_UNIQUE_OBJECTS; i++) {
+  for (var i = 1; i <= COUNT_UNIQUE_OBJECTS; i++) {
     titles.push('Unique Title ' + i);
   }
 
@@ -131,7 +131,7 @@ function getRandomData(data) {
   return result;
 }
 
-function createNewElement() {
+function rednerMapPin() {
   var pattern = document.querySelector('#pin').content.querySelector('.map__pin');
   var fragment = document.createDocumentFragment();
 
@@ -235,14 +235,11 @@ function createAdAndAddToDOM(obj) {
 
 map.classList.remove('map--faded');
 
+
 generateUniqueObjects();
 
-var elements = [];
+var domElement = createAdAndAddToDOM(uniqueObjects[0]);
+renderNewElements([domElement]);
 
-uniqueObjects.forEach(function (uniqueObject) {
-  var domElement = createAdAndAddToDOM(uniqueObject);
-  elements.push(domElement);
-});
 
-renderNewElements(elements);
-createNewElement();
+rednerMapPin();

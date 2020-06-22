@@ -19,7 +19,6 @@ var PIN_Y = 70;
 
 var uniqueObjects = [];
 
-
 function generateUniqueObjects() {
   var avatars = getAvatars();
   var titles = getTitles();
@@ -32,21 +31,21 @@ function generateUniqueObjects() {
   var features = getRandomData(FEATURES);
   var photos = getRandomData(PHOTOS);
 
-  for (var i = 1; i <= COUNT_UNIQUE_OBJECTS; i += 1) {
+  for (var i = 0; i < COUNT_UNIQUE_OBJECTS; i += 1) {
     var obj = {
       author: {
-        avatar: avatars[i - 1],
+        avatar: avatars[i],
       },
       offer: {
-        title: titles[i - 1],
-        price: prices[i - 1],
-        type: types[i - 1],
-        rooms: rooms[i - 1],
-        guest: guests[i - 1],
-        checkin: checkinData[i - 1],
-        checkout: checkoutData[i - 1],
-        features: features[i - 1],
-        photos: photos[i - 1],
+        title: titles[i],
+        price: prices[i],
+        type: types[i],
+        rooms: rooms[i],
+        guest: guests[i],
+        checkin: checkinData[i],
+        checkout: checkoutData[i],
+        features: features[i],
+        photos: photos[i],
         description: DESCRIPTION + i,
       },
       location: {
@@ -64,7 +63,7 @@ function generateUniqueObjects() {
 function getAvatars() {
   var avatars = [];
 
-  for (var i = 1; i <= COUNT_UNIQUE_OBJECTS; i++) {
+  for (var i = 0; i < COUNT_UNIQUE_OBJECTS; i++) {
     avatars.push('img/avatars/user' + '0' + i + '.png');
   }
 
@@ -74,7 +73,7 @@ function getAvatars() {
 function getTitles() {
   var titles = [];
 
-  for (var i = 1; i <= COUNT_UNIQUE_OBJECTS; i++) {
+  for (var i = 0; i < COUNT_UNIQUE_OBJECTS; i++) {
     titles.push('Unique Title ' + i);
   }
 
@@ -84,7 +83,7 @@ function getTitles() {
 function getPrices() {
   var prices = [];
 
-  for (var i = 1; i <= COUNT_UNIQUE_OBJECTS; i++) {
+  for (var i = 0; i < COUNT_UNIQUE_OBJECTS; i++) {
     prices.push(Math.floor(Math.random() * 10000));
   }
 
@@ -96,7 +95,7 @@ function getRandomElements(data) {
   var minIndex = 0;
   var maxIndex = data.length - 1;
 
-  for (var i = 1; i <= COUNT_UNIQUE_OBJECTS; i++) {
+  for (var i = 0; i < COUNT_UNIQUE_OBJECTS; i++) {
     var randomIndex = getRandomNumber(minIndex, maxIndex);
     elements.push(data[randomIndex]);
   }
@@ -111,7 +110,7 @@ function getRandomNumber(min, max) {
 function getRandomNumbers(min, max) {
   var numbers = [];
 
-  for (var i = 1; i <= COUNT_UNIQUE_OBJECTS; i++) {
+  for (var i = 0; i < COUNT_UNIQUE_OBJECTS; i++) {
     var randomNumber = getRandomNumber(min, max);
     numbers.push(randomNumber);
   }
@@ -124,7 +123,7 @@ function getRandomData(data) {
   var minIndex = 0;
   var maxIndex = data.length - 1;
 
-  for (var i = 1; i <= COUNT_UNIQUE_OBJECTS; i++) {
+  for (var i = 0; i < COUNT_UNIQUE_OBJECTS; i++) {
     var randomData = data.slice(minIndex, getRandomNumber(0, maxIndex));
     result.push(randomData);
   }
@@ -233,13 +232,6 @@ function createAdAndAddToDOM(obj) {
 
   return objNode;
 }
-
-// function renderOffers(obj) {
-//   var fragment = document.createDocumentFragment();
-//
-//   fragment.appendChild(createAdAndAddToDOM(obj));
-//   mapPins.after(fragment);
-// }
 
 map.classList.remove('map--faded');
 

@@ -13,7 +13,7 @@ var MIN_LOCATION_Y = 130;
 var MAX_LOCATION_Y = 630;
 var PIN_X = 50;
 var PIN_Y = 70;
-var MAIN_PIN_SIZE = 65;
+var MAIN_PIN_SIZE = 40;
 
 
 var mapPins = document.querySelector('.map__pins');
@@ -164,15 +164,15 @@ function rednerMapPin() {
   mapPins.appendChild(fragment);
 }
 
-function renderNewElements(elements) {
-  var fragment = document.createDocumentFragment();
-
-  elements.forEach(function (element) {
-    fragment.appendChild(element);
-  });
-
-  mapPins.appendChild(fragment);
-}
+// function renderNewElements(elements) {
+//   var fragment = document.createDocumentFragment();
+//
+//   elements.forEach(function (element) {
+//     fragment.appendChild(element);
+//   });
+//
+//   mapPins.appendChild(fragment);
+// }
 
 // // Функция выбора варианта для отображения типа жилья
 // function defineTypeHouse(homeType) {
@@ -255,17 +255,17 @@ function toggleFieldsAvailability(isLocked) {
   for (var i = 0; i < fieldsetsAndSelects.length; i++) {
     fieldsetsAndSelects[i].disabled = isLocked;
   }
-};
+}
 
 // Функции активации формы и карты
-function activatePage () {
+function activatePage() {
   var adForm = document.querySelector('.ad-form');
   if (map.classList.contains('map--faded')) {
     map.classList.remove('map--faded');
     adForm.classList.remove('ad-form--disabled');
 
     toggleFieldsAvailability(false);
-    rednerMapPin()
+    rednerMapPin();
 
     mainPinSizeX = parseInt(mainPin.style.left, 10) + Math.floor(MAIN_PIN_SIZE / 2);
     mainPinSizeY = parseInt(mainPin.style.top, 10) + MAIN_PIN_SIZE;
@@ -274,16 +274,16 @@ function activatePage () {
     roomsNumber.addEventListener('change', synchronizeFields);
     capacityGuests.addEventListener('change', synchronizeFields);
   }
-};
+}
 
-//Обработчик с кнопки мыши
+// Обработчик с кнопки мыши
 mainPin.addEventListener('mousedown', function (evt) {
   if (evt.button === 0) {
     activatePage();
   }
 });
 
-//Обработчик с кнопки клавиатуры
+// Обработчик с кнопки клавиатуры
 mainPin.addEventListener('keydown', function (evt) {
   if (evt.key === 'Enter') {
     activatePage();
@@ -291,13 +291,13 @@ mainPin.addEventListener('keydown', function (evt) {
 });
 
 // Функциия проверки синхронизации полей
-function synchronizeFields () {
+function synchronizeFields() {
   if (guestRoomsMap[roomsNumber.value].indexOf(capacityGuests.value) === -1) {
     capacityGuests.setCustomValidity('Укажите допустимое количество гостей');
   } else {
     capacityGuests.setCustomValidity('');
   }
-};
+}
 
 // Функция изменения минимального значения поля «Цена за ночь»
 function changeMinPrice() {
@@ -315,7 +315,7 @@ function changeMinPrice() {
     Price.placeholder = 10000;
     Price.min = 10000;
   }
-};
+}
 
 typeHouse.addEventListener('change', changeMinPrice);
 

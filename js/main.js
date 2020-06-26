@@ -301,19 +301,21 @@ function synchronizeFields() {
 
 // Функция изменения минимального значения поля «Цена за ночь»
 function changeMinPrice() {
-  var Price = document.querySelector('#price');
+  var price = document.querySelector('#price');
+
+
   if (typeHouse.value === 'bungalo') {
-    Price.placeholder = 0;
-    Price.min = 0;
+    price.placeholder = 0;
+    price.min = 0;
   } else if (typeHouse.value === 'flat') {
-    Price.placeholder = 1000;
-    Price.min = 1000;
+    price.placeholder = 1000;
+    price.min = 1000;
   } else if (typeHouse.value === 'house') {
-    Price.placeholder = 5000;
-    Price.min = 5000;
+    price.placeholder = 5000;
+    price.min = 5000;
   } else if (typeHouse.value === 'palace') {
-    Price.placeholder = 10000;
-    Price.min = 10000;
+    price.placeholder = 10000;
+    price.min = 10000;
   }
 }
 

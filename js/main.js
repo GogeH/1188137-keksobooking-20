@@ -349,13 +349,10 @@ function onMapPinsClick(evt) {
       mapCard.parentNode.removeChild(mapCard);
     }
 
-    var avatarSrc = closestMapPin.querySelector('img').src;
-
-    function isTargetOffer(offer) {
+    var targetElement = uniqueObjects.find(function (offer) {
+      var avatarSrc = closestMapPin.querySelector('img').src;
       return avatarSrc.includes(offer.author.avatar);
-    }
-
-    var targetElement = uniqueObjects.find(isTargetOffer);
+    });
 
     renderOffers(targetElement);
   }

@@ -339,7 +339,6 @@ timeIn.addEventListener('change', onSelectTimeChange.bind(null, timeOut, timeIn)
 timeOut.addEventListener('change', onSelectTimeChange.bind(null, timeIn, timeOut));
 
 
-
 // Функция отображения карточки объявления при клике по метке на карте
 function onMapPinsClick(evt) {
   var targetMapPin = evt.target;
@@ -391,6 +390,3 @@ toggleFieldsAvailability(true);
 synchronizeFields();
 
 changeMinPrice(typeHouse);
-
-
-

@@ -42,33 +42,33 @@ function generateUniqueObjects() {
   var photos = getRandomData(PHOTOS);
 
   function getAvatars() {
-    var avatars = [];
+    var avatar = [];
 
     for (var i = 1; i <= COUNT_UNIQUE_OBJECTS; i++) {
-      avatars.push('img/avatars/user' + '0' + i + '.png');
+      avatar.push('img/avatars/user' + '0' + i + '.png');
     }
 
-    return avatars;
+    return avatar;
   }
 
   function getTitles() {
-    var titles = [];
+    var title = [];
 
     for (var i = 1; i <= COUNT_UNIQUE_OBJECTS; i++) {
-      titles.push('Unique Title ' + i);
+      title.push('Unique Title ' + i);
     }
 
-    return titles;
+    return title;
   }
 
   function getPrices() {
-    var prices = [];
+    var price = [];
 
     for (var i = 0; i < COUNT_UNIQUE_OBJECTS; i++) {
-      prices.push(Math.floor(Math.random() * 10000));
+      price.push(Math.floor(Math.random() * 10000));
     }
 
-    return prices;
+    return price;
   }
 
   function getRandomElements(data) {
@@ -167,6 +167,7 @@ function createAdAndAddToDOM(obj) {
         return 'Бунгало';
       case 'house':
         return 'Дом';
+      default:
       case 'palace':
         return 'Дворец';
     }
@@ -309,7 +310,7 @@ function changeMinPrice() {
 }
 
 // Функции определения времени въезда/выезда
-function onSelectTimeChange (time1, time2) {
+function onSelectTimeChange(time1, time2) {
   time1.value = time2.value;
 }
 

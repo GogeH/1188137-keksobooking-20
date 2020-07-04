@@ -170,6 +170,7 @@ function createAdAndAddToDOM(obj) {
         return 'Бунгало';
       case 'house':
         return 'Дом';
+      default:
       case 'palace':
         return 'Дворец';
     }
@@ -233,7 +234,7 @@ function toggleFieldsAvailability(isLocked) {
 function activatePage() {
   var adForm = document.querySelector('.ad-form');
 
-  function renderMapPin(uniqueObjects) {
+  function renderMapPin(uniqueObject) {
     var pattern = document.querySelector('#pin').content.querySelector('.map__pin');
     var fragment = document.createDocumentFragment();
 
@@ -243,9 +244,9 @@ function activatePage() {
 
       var newElement = pattern.cloneNode(true);
 
-      newElement.style = 'left: ' + (uniqueObjects[i].location.x - PIN_X / 2) + 'px; top: ' + (uniqueObjects[i].location.y - PIN_Y) + 'px;';
-      newElement.querySelector('img').src = uniqueObjects[i].author.avatar;
-      newElement.querySelector('img').alt = uniqueObjects[i].offer.title;
+      newElement.style = 'left: ' + (uniqueObject[i].location.x - PIN_X / 2) + 'px; top: ' + (uniqueObject[i].location.y - PIN_Y) + 'px;';
+      newElement.querySelector('img').src = uniqueObject[i].author.avatar;
+      newElement.querySelector('img').alt = uniqueObject[i].offer.title;
 
       fragment.appendChild(newElement);
     }

@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Георгий Кириллов](https://up.htmlacademy.ru/javascript/20/user/1188137).
-* Наставник: [Иван Марченко](https://htmlacademy.ru/profile/id1101807).
+* Наставник: [Виталий Колесов](https://htmlacademy.ru/profile/id1468585).
 
 ---
 

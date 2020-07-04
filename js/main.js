@@ -16,8 +16,8 @@ var capacityGuests = document.querySelector('#capacity');
 var typeHouse = document.querySelector('#type');
 
 // Функция создания массива из 8 сгенерированных JS-объектов
-function generateUniqueObjects() {
-  var uniqueObjects = [];
+function generateUniqueObjects(uniqueObjects) {
+  uniqueObjects = [];
 
   var MIN_LOCATION_X = 0;
   var MAX_LOCATION_X = 1200;
@@ -143,6 +143,8 @@ function generateUniqueObjects() {
   return uniqueObjects;
 }
 
+var uniqueObjects = generateUniqueObjects();
+
 // Функции отрисовки карточки
 function createAdAndAddToDOM(obj) {
   var objTemplate = document.querySelector('#card').content.querySelector('.map__card');
@@ -160,6 +162,7 @@ function createAdAndAddToDOM(obj) {
 
   // Функция выбора варианта для отображения типа жилья
   function defineTypeHouse(homeType) {
+
     switch (homeType) {
       case 'flat':
         return 'Квартира';
@@ -167,7 +170,6 @@ function createAdAndAddToDOM(obj) {
         return 'Бунгало';
       case 'house':
         return 'Дом';
-      default:
       case 'palace':
         return 'Дворец';
     }
@@ -231,7 +233,7 @@ function toggleFieldsAvailability(isLocked) {
 function activatePage() {
   var adForm = document.querySelector('.ad-form');
 
-  function renderMapPin() {
+  function renderMapPin(uniqueObjects) {
     var pattern = document.querySelector('#pin').content.querySelector('.map__pin');
     var fragment = document.createDocumentFragment();
 
@@ -256,7 +258,7 @@ function activatePage() {
     adForm.classList.remove('ad-form--disabled');
 
     toggleFieldsAvailability(false);
-    renderMapPin();
+    renderMapPin(uniqueObjects);
 
     mainPinSizeX = parseInt(mainPin.style.left, 10) + Math.floor(MAIN_PIN_SIZE / 2);
     mainPinSizeY = parseInt(mainPin.style.top, 10) + MAIN_PIN_SIZE;
@@ -294,18 +296,19 @@ function synchronizeFields() {
 function changeMinPrice() {
   var price = document.querySelector('#price');
 
-  if (typeHouse.value === 'bungalo') {
-    price.placeholder = 0;
-    price.min = 0;
-  } else if (typeHouse.value === 'flat') {
-    price.placeholder = 1000;
-    price.min = 1000;
-  } else if (typeHouse.value === 'house') {
-    price.placeholder = 5000;
-    price.min = 5000;
-  } else if (typeHouse.value === 'palace') {
-    price.placeholder = 10000;
-    price.min = 10000;
+  switch (typeHouse.value) {
+    case 'bungalo':
+      price.placeholder = 0;
+      price.min = 0;
+    case 'flat':
+      price.placeholder = 1000;
+      price.min = 1000;
+    case 'house':
+      price.placeholder = 5000;
+      price.min = 5000;
+    case 'palace':
+      price.placeholder = 10000;
+      price.min = 10000;
   }
 }
 
@@ -346,7 +349,15 @@ function onMapPinsClick(evt) {
   }
 }
 
-var uniqueObjects = generateUniqueObjects();
+function init() {
+  inputAddress.value = mainPinSizeX + ',' + mainPinSizeY;
+  inputAddress.setAttribute('readonly', 'readonly');
+
+  toggleFieldsAvailability(true);
+  synchronizeFields();
+
+  changeMinPrice(typeHouse);
+}
 
 mainPin.addEventListener('mousedown', function (evt) {
   if (evt.button === 0) {
@@ -383,11 +394,5 @@ document.addEventListener('keydown', function (evt) {
   }
 });
 
+init();
 
-inputAddress.value = mainPinSizeX + ',' + mainPinSizeY;
-inputAddress.setAttribute('readonly', 'readonly');
-
-toggleFieldsAvailability(true);
-synchronizeFields();
-
-changeMinPrice(typeHouse);

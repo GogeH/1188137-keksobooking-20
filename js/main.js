@@ -161,7 +161,7 @@ function createAdAndAddToDOM(obj) {
   var popupAvatar = objNode.querySelector('.popup__avatar');
 
   // Функция выбора варианта для отображения типа жилья
-  function defineTypeHouse(homeType) {
+  function defineTypeHouse() {
 
     switch (homeType) {
       case 'flat':

@@ -23,7 +23,7 @@
     priceDom.min = price.min;
     priceDom.placeholder = price.placeholder;
 
-    function computeMinPrice () {
+    function computeMinPrice() {
       switch (typeHouse.value) {
         case 'bungalo':
           return {placeholder: 0, min: 0};

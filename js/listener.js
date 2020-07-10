@@ -14,18 +14,18 @@
     }
   });
 
-// Обработчик с кнопки клавиатуры
+  // Обработчик с кнопки клавиатуры
   mainPin.addEventListener('keydown', function (evt) {
     if (evt.key === 'Enter') {
       window.map.activatePage();
     }
   });
 
-  timeIn.addEventListener('change', function() {
+  timeIn.addEventListener('change', function () {
     window.condition.onSelectTimeChangeTimeIn();
   });
 
-  timeOut.addEventListener('change', function() {
+  timeOut.addEventListener('change', function () {
     window.condition.onSelectTimeChangeTimeOut();
   });
 
@@ -33,14 +33,14 @@
     window.card.onMapPinsClick(evt);
   });
 
-// Обработчики открытия Popup
+  // Обработчики открытия Popup
   mapPins.addEventListener('keydown', function (evt) {
     if (evt.key === 'Enter') {
       window.card.onMapPinsClick(evt);
     }
   });
 
-// Обработчики закрытия Popup
+  // Обработчики закрытия Popup
   document.addEventListener('keydown', function (evt) {
     var mapCard = document.querySelector('.map__card');
     if (evt.key === 'Escape') {

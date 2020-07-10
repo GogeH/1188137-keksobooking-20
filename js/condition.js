@@ -27,6 +27,7 @@
       switch (typeHouse.value) {
         case 'bungalo':
           return {placeholder: 0, min: 0};
+        default:
         case 'flat':
           return {placeholder: 1000, min: 1000};
         case 'house':

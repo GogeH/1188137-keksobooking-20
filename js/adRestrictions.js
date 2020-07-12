@@ -64,11 +64,17 @@
     }
   }
 
+  timeIn.addEventListener('change', function () {
+    onSelectTimeChangeTimeIn();
+  });
+
+  timeOut.addEventListener('change', function () {
+    onSelectTimeChangeTimeOut();
+  });
+
   window.adRestrictions = {
     toggleFieldsAvailability: toggleFieldsAvailability,
     changeMinPrice: changeMinPrice,
-    onSelectTimeChangeTimeIn: onSelectTimeChangeTimeIn,
-    onSelectTimeChangeTimeOut: onSelectTimeChangeTimeOut,
     synchronizeFields: synchronizeFields,
   };
 

@@ -16,6 +16,8 @@
   var roomsNumber = document.querySelector('#room_number');
   var capacityGuests = document.querySelector('#capacity');
 
+  var uniqueObjects = window.data.generateUniqueObjects();
+
   // Функции активации формы и карты
   function activatePage() {
     var adForm = document.querySelector('.ad-form');
@@ -45,7 +47,7 @@
       adForm.classList.remove('ad-form--disabled');
 
       window.adRestrictions.toggleFieldsAvailability(false);
-      renderMapPin(window.data.uniqueObjects);
+      renderMapPin(uniqueObjects);
 
       mainPinSizeX = parseInt(mainPin.style.left, 10) + Math.floor(MAIN_PIN_SIZE / 2);
       mainPinSizeY = parseInt(mainPin.style.top, 10) + MAIN_PIN_SIZE;
@@ -165,7 +167,7 @@
         mapCard.parentNode.removeChild(mapCard);
       }
 
-      var targetElement = window.data.uniqueObjects.find(function (offer) {
+      var targetElement = uniqueObjects.find(function (offer) {
         var avatarSrc = closestMapPin.querySelector('img').src;
         return avatarSrc.includes(offer.author.avatar);
       });
@@ -174,9 +176,39 @@
     }
   }
 
-  window.map = {
-    activatePage: activatePage,
-    onMapPinsClick: onMapPinsClick,
-  };
+  // Обработчики открытия Popup
+  mapPins.addEventListener('keydown', function (evt) {
+    if (evt.key === 'Enter') {
+      onMapPinsClick(evt);
+    }
+  });
+
+  // Обработчики закрытия Popup
+  document.addEventListener('keydown', function (evt) {
+    var mapCard = document.querySelector('.map__card');
+    if (evt.key === 'Escape') {
+      if (mapCard !== null) {
+        mapCard.parentNode.removeChild(mapCard);
+      }
+    }
+  });
+
+  // Обработчик с кнопки мыши
+  mainPin.addEventListener('mousedown', function (evt) {
+    if (evt.button === 0) {
+     activatePage();
+    }
+  });
+
+  // Обработчик с кнопки клавиатуры
+  mainPin.addEventListener('keydown', function (evt) {
+    if (evt.key === 'Enter') {
+      activatePage();
+    }
+  });
+
+  mapPins.addEventListener('click', function (evt) {
+    onMapPinsClick(evt);
+  });
 
 })();

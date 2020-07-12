@@ -131,10 +131,10 @@ var COUNT_UNIQUE_OBJECTS = 8;
     return uniqueObjects;
   }
 
-  var uniqueObjects = generateUniqueObjects();
+
 
   window.data = {
-    uniqueObjects: uniqueObjects,
+    generateUniqueObjects: generateUniqueObjects,
   };
 
 })();

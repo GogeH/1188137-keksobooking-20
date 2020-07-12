@@ -76,6 +76,8 @@
     toggleFieldsAvailability: toggleFieldsAvailability,
     changeMinPrice: changeMinPrice,
     synchronizeFields: synchronizeFields,
+    onSelectTimeChangeTimeOut: onSelectTimeChangeTimeOut,
+    onSelectTimeChangeTimeIn: onSelectTimeChangeTimeIn,
   };
 
 })();

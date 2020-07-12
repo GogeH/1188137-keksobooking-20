@@ -18,6 +18,9 @@ var COUNT_UNIQUE_OBJECTS = 8;
     var TYPES = ['palace', 'flat', 'house', 'bungalo'];
     var PHOTOS = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
 
+    var TOP_VERTICAL_LIMIT = 130;
+    var BOTTOM_VERTICAL_LIMIT = 630;
+
     var avatars = getAvatars();
     var titles = getTitles();
     var prices = getPrices();
@@ -130,8 +133,6 @@ var COUNT_UNIQUE_OBJECTS = 8;
 
     return uniqueObjects;
   }
-
-
 
   window.data = {
     generateUniqueObjects: generateUniqueObjects,

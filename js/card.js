@@ -69,7 +69,7 @@
         var onClickPreventDefault = function (clickEvt) {
           clickEvt.preventDefault();
           mainPin.removeEventListener('click', onClickPreventDefault);
-        }
+        };
         mainPin.addEventListener('click', onClickPreventDefault);
       }
     }

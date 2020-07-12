@@ -15,10 +15,10 @@
     inputAddress.value = mainPinSizeX + ',' + mainPinSizeY;
     inputAddress.setAttribute('readonly', 'readonly');
 
-    window.condition.toggleFieldsAvailability(true);
-    window.condition.synchronizeFields();
+    window.adRestrictions.toggleFieldsAvailability(true);
+    window.adRestrictions.synchronizeFields();
 
-    window.condition.changeMinPrice(typeHouse);
+    window.adRestrictions.changeMinPrice(typeHouse);
   }
 
   start();

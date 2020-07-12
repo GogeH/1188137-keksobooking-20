@@ -64,7 +64,7 @@
     }
   }
 
-  window.condition = {
+  window.adRestrictions = {
     toggleFieldsAvailability: toggleFieldsAvailability,
     changeMinPrice: changeMinPrice,
     onSelectTimeChangeTimeIn: onSelectTimeChangeTimeIn,
@@ -73,3 +73,4 @@
   };
 
 })();
+

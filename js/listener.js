@@ -22,21 +22,21 @@
   });
 
   timeIn.addEventListener('change', function () {
-    window.condition.onSelectTimeChangeTimeIn();
+    window.adRestrictions.onSelectTimeChangeTimeIn();
   });
 
   timeOut.addEventListener('change', function () {
-    window.condition.onSelectTimeChangeTimeOut();
+    window.adRestrictions.onSelectTimeChangeTimeOut();
   });
 
   mapPins.addEventListener('click', function (evt) {
-    window.card.onMapPinsClick(evt);
+    window.map.onMapPinsClick(evt);
   });
 
   // Обработчики открытия Popup
   mapPins.addEventListener('keydown', function (evt) {
     if (evt.key === 'Enter') {
-      window.card.onMapPinsClick(evt);
+      window.map.onMapPinsClick(evt);
     }
   });
 

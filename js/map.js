@@ -196,7 +196,7 @@
   // Обработчик с кнопки мыши
   mainPin.addEventListener('mousedown', function (evt) {
     if (evt.button === 0) {
-     activatePage();
+      activatePage();
     }
   });
 

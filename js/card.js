@@ -25,7 +25,7 @@
 
     var dragged = false;
 
-    function onMouseMove (moveEvt) {
+    function onMouseMove(moveEvt) {
       moveEvt.preventDefault();
 
       dragged = true;
@@ -57,24 +57,22 @@
 
       address.value = Math.round(mainPin.offsetLeft + MAIN_PIN_WIDTH / 2) + ', ' + Math.round(mainPin.offsetTop + MAIN_PIN_HEIGHT + MAIN_PIN_POINTER / 2);
 
-    };
+    }
 
-    function onMouseUp (upEvt) {
+    function onMouseUp(upEvt) {
       upEvt.preventDefault();
 
       document.removeEventListener('mousemove', onMouseMove);
       document.removeEventListener('mouseup', onMouseUp);
 
       if (dragged) {
-        function onClickPreventDefault (clickEvt) {
+        function onClickPreventDefault(clickEvt) {
           clickEvt.preventDefault();
-          mainPin.removeEventListener('click', onClickPreventDefault)
-        };
+          mainPin.removeEventListener('click', onClickPreventDefault);
+        }
         mainPin.addEventListener('click', onClickPreventDefault);
       }
-    };
-
-
+    }
 
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);

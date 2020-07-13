@@ -16,7 +16,7 @@
   var roomsNumber = document.querySelector('#room_number');
   var capacityGuests = document.querySelector('#capacity');
 
-  var uniqueObjects = window.data.generateUniqueObjects();
+  var uniqueObjectsAd = window.data.generateUniqueObjects();
 
   // Функции активации формы и карты
   function activatePage() {
@@ -47,7 +47,7 @@
       adForm.classList.remove('ad-form--disabled');
 
       window.adRestrictions.toggleFieldsAvailability(false);
-      renderMapPin(uniqueObjects);
+      renderMapPin(uniqueObjectsAd);
 
       mainPinSizeX = parseInt(mainPin.style.left, 10) + Math.floor(MAIN_PIN_SIZE / 2);
       mainPinSizeY = parseInt(mainPin.style.top, 10) + MAIN_PIN_SIZE;
@@ -167,7 +167,7 @@
         mapCard.parentNode.removeChild(mapCard);
       }
 
-      var targetElement = uniqueObjects.find(function (offer) {
+      var targetElement = uniqueObjectsAd.find(function (offer) {
         var avatarSrc = closestMapPin.querySelector('img').src;
         return avatarSrc.includes(offer.author.avatar);
       });
@@ -196,7 +196,7 @@
   // Обработчик с кнопки мыши
   mainPin.addEventListener('mousedown', function (evt) {
     if (evt.button === 0) {
-     activatePage();
+      activatePage();
     }
   });
 

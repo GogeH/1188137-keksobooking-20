@@ -131,8 +131,6 @@ var COUNT_UNIQUE_OBJECTS = 8;
     return uniqueObjects;
   }
 
-
-
   window.data = {
     generateUniqueObjects: generateUniqueObjects,
   };

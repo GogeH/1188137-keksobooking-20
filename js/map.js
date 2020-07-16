@@ -1,7 +1,6 @@
 'use strict';
 
 (function () {
-  var COUNT_UNIQUE_OBJECTS = 8;
   var MAIN_PIN_SIZE = 40;
 
   var mapPins = document.querySelector('.map__pins');
@@ -15,8 +14,31 @@
   var typeHouse = document.querySelector('#type');
   var roomsNumber = document.querySelector('#room_number');
   var capacityGuests = document.querySelector('#capacity');
+  var errorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
 
-  var uniqueObjectsAd = window.data.generateUniqueObjects();
+  var uniqueObjectsAd;
+
+  var onLoad = function (data) {
+    uniqueObjectsAd = data;
+  };
+
+  var errorHandler = function (errorMessage) {
+    var message = errorMessageTemplate.cloneNode(true);
+    var errorText = message.querySelector('.error__message');
+    errorText.textContent = errorMessage;
+
+    document.querySelector('main').appendChild(message);
+
+    var errorButton = message.querySelector('.error__button');
+    errorButton.addEventListener('click', errorButtonClickHandler);
+  };
+
+  var errorButtonClickHandler = function () {
+    document.querySelector('div.error').remove();
+  };
+
+  window.backend.loadData(onLoad, errorHandler);
+
 
   // Функции активации формы и карты
   function activatePage() {
@@ -26,7 +48,7 @@
       var pattern = document.querySelector('#pin').content.querySelector('.map__pin');
       var fragment = document.createDocumentFragment();
 
-      for (var i = 0; i < COUNT_UNIQUE_OBJECTS; i++) {
+      for (var i = 0; i < uniqueObject.length; i++) {
         var PIN_X = 50;
         var PIN_Y = 70;
 

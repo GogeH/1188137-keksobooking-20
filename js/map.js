@@ -42,9 +42,6 @@
     document.querySelector('div.error').remove();
   };
 
-
-
-
   // Функции активации формы и карты
   function activatePage() {
     var adForm = document.querySelector('.ad-form');

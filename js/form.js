@@ -50,7 +50,7 @@
     }
 
     document.querySelectorAll('.map__pin:not(.map__pin--main)').forEach(function (element) {
-      element.remove()
+      element.remove();
     });
   };
 

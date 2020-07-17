@@ -19,7 +19,12 @@
   var uniqueObjectsAd;
 
   var onLoad = function (data) {
-    uniqueObjectsAd = data;
+    uniqueObjectsAd = data.map(function (item, index) {
+      return Object.assign({
+        id: index,
+      }, item);
+    });
+    activatePage();
   };
 
   var errorHandler = function (errorMessage) {
@@ -37,7 +42,7 @@
     document.querySelector('div.error').remove();
   };
 
-  window.backend.loadData(onLoad, errorHandler);
+
 
 
   // Функции активации формы и карты
@@ -55,8 +60,12 @@
         var newElement = pattern.cloneNode(true);
 
         newElement.style = 'left: ' + (uniqueObject[i].location.x - PIN_X / 2) + 'px; top: ' + (uniqueObject[i].location.y - PIN_Y) + 'px;';
-        newElement.querySelector('img').src = uniqueObject[i].author.avatar;
-        newElement.querySelector('img').alt = uniqueObject[i].offer.title;
+
+        var img = newElement.querySelector('img');
+
+        img.src = uniqueObject[i].author.avatar;
+        img.alt = uniqueObject[i].offer.title;
+        img.dataset.id = uniqueObject[i].id;
 
         fragment.appendChild(newElement);
       }
@@ -190,8 +199,8 @@
       }
 
       var targetElement = uniqueObjectsAd.find(function (offer) {
-        var avatarSrc = closestMapPin.querySelector('img').src;
-        return avatarSrc.includes(offer.author.avatar);
+        var id = closestMapPin.querySelector('img').dataset.id;
+        return id.includes(offer.id);
       });
 
       renderOffers(targetElement);
@@ -218,14 +227,14 @@
   // Обработчик с кнопки мыши
   mainPin.addEventListener('mousedown', function (evt) {
     if (evt.button === 0) {
-      activatePage();
+      window.backend.loadData(onLoad, errorHandler);
     }
   });
 
   // Обработчик с кнопки клавиатуры
   mainPin.addEventListener('keydown', function (evt) {
     if (evt.key === 'Enter') {
-      activatePage();
+      window.backend.loadData(onLoad, errorHandler);
     }
   });
 

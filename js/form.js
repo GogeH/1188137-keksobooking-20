@@ -20,8 +20,8 @@
     if (evt.key === 'Escape') {
       var successElement = document.querySelector('div.success');
       var errorElement = document.querySelector('div.error');
-      successElement && successElement.remove();
-      errorElement && errorElement.remove();
+      successElement.remove();
+      errorElement.remove();
     }
   };
 

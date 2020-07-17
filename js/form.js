@@ -20,8 +20,14 @@
     if (evt.key === 'Escape') {
       var successElement = document.querySelector('div.success');
       var errorElement = document.querySelector('div.error');
-      successElement.remove();
-      errorElement.remove();
+
+      if (successElement) {
+        successElement.remove();
+      }
+
+      if (errorElement) {
+        errorElement.remove();
+      }
     }
   };
 
@@ -44,7 +50,7 @@
     mapAd.classList.add('map--faded');
     adForm.classList.add('ad-form--disabled');
 
-    // Не скрывается попап при отправки формы!
+    // Не скрывается попап при отправки формы!   НЕ РАБОТАЕТ КАК НАДО!
     if (mapCard) {
       mapCard.remove();
     }

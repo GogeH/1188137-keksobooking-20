@@ -26,7 +26,7 @@
     });
 
     activatePage(uniqueObjectsAd);
-  };
+  }
 
   function errorHandler(errorMessage) {
     var message = errorMessageTemplate.cloneNode(true);
@@ -37,7 +37,7 @@
 
     var errorButton = message.querySelector('.error__button');
     errorButton.addEventListener('click', errorButtonClickHandler);
-  };
+  }
 
   function errorButtonClickHandler() {
     document.querySelector('div.error').remove();

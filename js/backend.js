@@ -34,7 +34,7 @@
 
     xhr.open('GET', URL);
     xhr.send();
-  };
+  }
 
   function onSaveData(data, onLoad, onError) {
     var xhr = new XMLHttpRequest();
@@ -55,7 +55,7 @@
 
     xhr.open('POST', URL_POST);
     xhr.send(data);
-  };
+  }
 
   window.backend = {
     onLoadData: onLoadData,

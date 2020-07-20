@@ -13,7 +13,7 @@
 
     document.addEventListener('keydown', escKeyDownHandler);
     document.addEventListener('click', windowClickHandler);
-  };
+  }
 
   function escKeyDownHandler(evt) {
     if (evt.key === 'Escape') {
@@ -28,7 +28,7 @@
         errorElement.remove();
       }
     }
-  };
+  }
 
   function windowClickHandler(evt) {
     var target = evt.target;
@@ -40,7 +40,7 @@
     if (target.matches('.error') || target.matches('.error__button')) {
       document.querySelector('.error').remove();
     }
-  };
+  }
 
   function onSuccessData() {
     formUploadHandler(successMessageTemplate);
@@ -57,11 +57,11 @@
     document.querySelectorAll('.map__pin:not(.map__pin--main)').forEach(function (element) {
       element.remove();
     });
-  };
+  }
 
   function onErrorData() {
     formUploadHandler(errorMessageTemplate);
-  };
+  }
 
   adForm.addEventListener('submit', function (evt) {
     evt.preventDefault();
@@ -74,7 +74,7 @@
   function adFormResetButtonClickHandler(evt) {
     evt.preventDefault();
     adForm.reset();
-  };
+  }
 
   adFormResetButton.addEventListener('click', adFormResetButtonClickHandler);
 

@@ -44,7 +44,7 @@
   }
 
   // Функции активации формы и карты
-  function activatePage(uniqueObjectsAd) {
+  function activatePage() {
     var adForm = document.querySelector('.ad-form');
 
     function renderMapPin(uniqueObject) {

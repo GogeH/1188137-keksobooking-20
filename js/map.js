@@ -18,16 +18,17 @@
 
   var uniqueObjectsAd;
 
-  var onLoad = function (data) {
+  function onLoad(data) {
     uniqueObjectsAd = data.map(function (item, index) {
       return Object.assign({
         id: index,
       }, item);
     });
-    activatePage();
+
+    activatePage(uniqueObjectsAd);
   };
 
-  var errorHandler = function (errorMessage) {
+  function errorHandler(errorMessage) {
     var message = errorMessageTemplate.cloneNode(true);
     var errorText = message.querySelector('.error__message');
     errorText.textContent = errorMessage;
@@ -38,12 +39,12 @@
     errorButton.addEventListener('click', errorButtonClickHandler);
   };
 
-  var errorButtonClickHandler = function () {
+  function errorButtonClickHandler() {
     document.querySelector('div.error').remove();
-  };
+  }
 
   // Функции активации формы и карты
-  function activatePage() {
+  function activatePage(uniqueObjectsAd) {
     var adForm = document.querySelector('.ad-form');
 
     function renderMapPin(uniqueObject) {
@@ -224,14 +225,14 @@
   // Обработчик с кнопки мыши
   mainPin.addEventListener('mousedown', function (evt) {
     if (evt.button === 0) {
-      window.backend.loadData(onLoad, errorHandler);
+      window.backend.onLoadData(onLoad, errorHandler);
     }
   });
 
   // Обработчик с кнопки клавиатуры
   mainPin.addEventListener('keydown', function (evt) {
     if (evt.key === 'Enter') {
-      window.backend.loadData(onLoad, errorHandler);
+      window.backend.onLoadData(onLoad, errorHandler);
     }
   });
 

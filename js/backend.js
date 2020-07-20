@@ -10,7 +10,7 @@
   };
   var TIMEOUT_IN_MS = 1000;
 
-  var loadData = function (onSuccess, onError) {
+  function onLoadData(onSuccess, onError) {
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
 
@@ -36,7 +36,7 @@
     xhr.send();
   };
 
-  var saveData = function (data, onLoad, onError) {
+  function onSaveData(data, onLoad, onError) {
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
 
@@ -58,8 +58,8 @@
   };
 
   window.backend = {
-    loadData: loadData,
-    saveData: saveData,
+    onLoadData: onLoadData,
+    onSaveData: onSaveData,
   };
 
 })();

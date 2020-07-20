@@ -4,11 +4,10 @@
   var mapAd = document.querySelector('.map');
   var adFormResetButton = document.querySelector('.ad-form__reset');
   var adForm = document.querySelector('.ad-form');
-  var mapCard = document.querySelector('.map__card');
   var successMessageTemplate = document.querySelector('#success').content.querySelector('.success');
   var errorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
 
-  var formUploadHandler = function (template) {
+  function formUploadHandler(template) {
     var message = template.cloneNode(true);
     document.querySelector('main').appendChild(message);
 
@@ -16,7 +15,7 @@
     document.addEventListener('click', windowClickHandler);
   };
 
-  var escKeyDownHandler = function (evt) {
+  function escKeyDownHandler(evt) {
     if (evt.key === 'Escape') {
       var successElement = document.querySelector('div.success');
       var errorElement = document.querySelector('div.error');
@@ -31,7 +30,7 @@
     }
   };
 
-  var windowClickHandler = function (evt) {
+  function windowClickHandler(evt) {
     var target = evt.target;
 
     if (target.matches('.success')) {
@@ -43,16 +42,16 @@
     }
   };
 
-  var onSuccessData = function () {
+  function onSuccessData() {
     formUploadHandler(successMessageTemplate);
+    var mapCard = document.querySelector('.map__card');
 
     adForm.reset();
     mapAd.classList.add('map--faded');
     adForm.classList.add('ad-form--disabled');
 
-    // Не скрывается попап при отправки формы!   НЕ РАБОТАЕТ КАК НАДО!
     if (mapCard) {
-      mapCard.remove();
+      mapCard.classList.add('hidden');
     }
 
     document.querySelectorAll('.map__pin:not(.map__pin--main)').forEach(function (element) {
@@ -60,7 +59,7 @@
     });
   };
 
-  var onErrorData = function () {
+  function onErrorData() {
     formUploadHandler(errorMessageTemplate);
   };
 
@@ -68,11 +67,11 @@
     evt.preventDefault();
 
     var data = new FormData(adForm);
-    window.backend.saveData(data, onSuccessData, onErrorData);
+    window.backend.onSaveData(data, onSuccessData, onErrorData);
   });
 
 
-  var adFormResetButtonClickHandler = function (evt) {
+  function adFormResetButtonClickHandler(evt) {
     evt.preventDefault();
     adForm.reset();
   };

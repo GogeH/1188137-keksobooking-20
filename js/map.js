@@ -16,6 +16,8 @@
   var capacityGuests = document.querySelector('#capacity');
   var errorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
 
+  var housingType = document.querySelector('#housing-type');
+
   var uniqueObjectsAd;
 
   function onLoad(data) {
@@ -25,7 +27,9 @@
       }, item);
     });
 
-    activatePage(uniqueObjectsAd);
+    var uniqueObjectsAdForRender = window.filter.getFilteredData(uniqueObjectsAd);
+
+    activatePage(uniqueObjectsAdForRender);
   }
 
   function errorHandler(errorMessage) {
@@ -43,40 +47,58 @@
     document.querySelector('div.error').remove();
   }
 
-  // Функции активации формы и карты
-  function activatePage() {
-    var adForm = document.querySelector('.ad-form');
+  function removeMapCard() {
+    var mapCard = document.querySelector('.map__card');
 
-    function renderMapPin(uniqueObject) {
-      var pattern = document.querySelector('#pin').content.querySelector('.map__pin');
-      var fragment = document.createDocumentFragment();
-
-      for (var i = 0; i < uniqueObject.length; i++) {
-        var PIN_X = 50;
-        var PIN_Y = 70;
-
-        var newElement = pattern.cloneNode(true);
-
-        newElement.style = 'left: ' + (uniqueObject[i].location.x - PIN_X / 2) + 'px; top: ' + (uniqueObject[i].location.y - PIN_Y) + 'px;';
-
-        var img = newElement.querySelector('img');
-
-        img.src = uniqueObject[i].author.avatar;
-        img.alt = uniqueObject[i].offer.title;
-        img.dataset.id = uniqueObject[i].id;
-
-        fragment.appendChild(newElement);
-      }
-
-      mapPins.appendChild(fragment);
+    if (mapCard !== null) {
+      mapCard.parentNode.removeChild(mapCard);
     }
+  }
+
+  function removeMapPins() {
+    var pins = mapPins.querySelectorAll('.map__pin:not(.map__pin--main)');
+
+    pins.forEach(function (pin) {
+      pin.remove();
+    });
+  }
+
+  function renderMapPins(uniqueObjects) {
+    var pattern = document.querySelector('#pin').content.querySelector('.map__pin');
+    var fragment = document.createDocumentFragment();
+
+    for (var i = 0; i < uniqueObjects.length; i++) {
+      var PIN_X = 50;
+      var PIN_Y = 70;
+
+      var newElement = pattern.cloneNode(true);
+
+      newElement.style = 'left: ' + (uniqueObjects[i].location.x - PIN_X / 2) + 'px; top: ' + (uniqueObjects[i].location.y - PIN_Y) + 'px;';
+
+      var img = newElement.querySelector('img');
+
+      img.src = uniqueObjects[i].author.avatar;
+      img.alt = uniqueObjects[i].offer.title;
+      img.dataset.id = uniqueObjects[i].id;
+
+      fragment.appendChild(newElement);
+    }
+
+    removeMapPins();
+    removeMapCard();
+    mapPins.appendChild(fragment);
+  }
+
+  // Функции активации формы и карты
+  function activatePage(objectsAd) {
+    var adForm = document.querySelector('.ad-form');
 
     if (mapAd.classList.contains('map--faded')) {
       mapAd.classList.remove('map--faded');
       adForm.classList.remove('ad-form--disabled');
 
       window.adRestrictions.toggleFieldsAvailability(false);
-      renderMapPin(uniqueObjectsAd);
+      renderMapPins(objectsAd);
 
       mainPinSizeX = parseInt(mainPin.style.left, 10) + Math.floor(MAIN_PIN_SIZE / 2);
       mainPinSizeY = parseInt(mainPin.style.top, 10) + MAIN_PIN_SIZE;
@@ -191,10 +213,7 @@
     }
 
     if (closestMapPin && !closestMapPin.classList.contains('map__pin--main')) {
-      var mapCard = document.querySelector('.map__card');
-      if (mapCard !== null) {
-        mapCard.parentNode.removeChild(mapCard);
-      }
+      removeMapCard();
 
       var targetElement = uniqueObjectsAd.find(function (offer) {
         var id = closestMapPin.querySelector('img').dataset.id;
@@ -240,4 +259,13 @@
     onMapPinsClick(evt);
   });
 
+  housingType.addEventListener('change', function (evt) {
+    var uniqueObjectsAdForRender = window.filter.getFilteredData(uniqueObjectsAd);
+
+    renderMapPins(uniqueObjectsAdForRender);
+  });
+
 })();
+
+
+

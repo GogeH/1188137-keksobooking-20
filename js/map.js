@@ -259,13 +259,10 @@
     onMapPinsClick(evt);
   });
 
-  housingType.addEventListener('change', function (evt) {
+  housingType.addEventListener('change', function () {
     var uniqueObjectsAdForRender = window.filter.getFilteredData(uniqueObjectsAd);
 
     renderMapPins(uniqueObjectsAdForRender);
   });
 
 })();
-
-
-

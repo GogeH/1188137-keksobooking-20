@@ -16,8 +16,6 @@
   var capacityGuests = document.querySelector('#capacity');
   var errorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
 
-  var housingType = document.querySelector('#housing-type');
-
   var uniqueObjectsAd;
 
   function onLoad(data) {
@@ -259,10 +257,12 @@
     onMapPinsClick(evt);
   });
 
-  housingType.addEventListener('change', function () {
-    var uniqueObjectsAdForRender = window.filter.getFilteredData(uniqueObjectsAd);
+  var mapFilters = document.querySelector('.map__filters');
+  var renderMapPinsWithDebounce = window.debounce(renderMapPins);
 
-    renderMapPins(uniqueObjectsAdForRender);
+  mapFilters.addEventListener('change', function () {
+    var uniqueObjectsAdForRender = window.filter.getFilteredData(uniqueObjectsAd);
+    renderMapPinsWithDebounce(uniqueObjectsAdForRender);
   });
 
 })();

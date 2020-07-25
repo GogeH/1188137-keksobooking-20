@@ -42,11 +42,9 @@
     }
   }
 
-  function onSuccessData() {
-    formUploadHandler(successMessageTemplate);
+  function toDefaultView() {
     var mapCard = document.querySelector('.map__card');
 
-    adForm.reset();
     mapAd.classList.add('map--faded');
     adForm.classList.add('ad-form--disabled');
 
@@ -57,6 +55,18 @@
     document.querySelectorAll('.map__pin:not(.map__pin--main)').forEach(function (element) {
       element.remove();
     });
+  }
+
+  function resetForm() {
+    adForm.reset();
+    window.avatar.removeHousePhotos();
+    window.avatar.removeHeaderPhotos();
+  }
+
+  function onSuccessData() {
+    formUploadHandler(successMessageTemplate);
+    resetForm();
+    toDefaultView();
   }
 
   function onErrorData() {
@@ -73,7 +83,7 @@
 
   function adFormResetButtonClickHandler(evt) {
     evt.preventDefault();
-    adForm.reset();
+    resetForm();
   }
 
   adFormResetButton.addEventListener('click', adFormResetButtonClickHandler);

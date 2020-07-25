@@ -7,7 +7,6 @@
   var roomsNumber = document.querySelector('#room_number');
   var capacityGuests = document.querySelector('#capacity');
 
-  // Функция блокировки полей форм
   function toggleFieldsAvailability(isLocked) {
     var fieldsetsAndSelects = document.querySelectorAll('fieldset, select');
 
@@ -16,7 +15,6 @@
     }
   }
 
-  // Функция изменения минимального значения поля «Цена за ночь»
   function changeMinPrice() {
     var priceDom = document.querySelector('#price');
     var price = computeMinPrice();
@@ -38,17 +36,14 @@
     }
   }
 
-  // Функции определения времени въезда
   function onSelectTimeChangeTimeIn() {
     timeOut.value = timeIn.value;
   }
 
-  // Функции определения времени выезда
   function onSelectTimeChangeTimeOut() {
     timeIn.value = timeOut.value;
   }
 
-  // Функциия проверки синхронизации полей
   function synchronizeFields() {
     var guestRoomsMap = {
       1: ['1'],

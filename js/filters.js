@@ -12,7 +12,6 @@
   var housingFeaturesSelect = filterForm.querySelector('#housing-features');
 
 
-  // создание нового массива
   function makeFilterAds(offers) {
     return offers.filter(function (offer) {
       return filterByType(offer)
@@ -23,7 +22,6 @@
     }).slice(0, MAX_NUMBER_DISPLAYED_PINS);
   }
 
-  // проверка на соответсвие типу жилья
   function filterByType(element) {
     return housingTypeSelect.value === element.offer.type || housingTypeSelect.value === DEFAULT_VALUE;
   }

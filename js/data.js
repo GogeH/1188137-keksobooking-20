@@ -1,12 +1,10 @@
 'use strict';
 
-var COUNT_UNIQUE_OBJECTS = 8;
-
 (function () {
-  // Функция создания массива из 8 сгенерированных JS-объектов
   function generateUniqueObjects(uniqueObjects) {
     uniqueObjects = [];
 
+    var COUNT_UNIQUE_OBJECTS = 8;
     var MIN_LOCATION_X = 0;
     var MAX_LOCATION_X = 1200;
     var MIN_LOCATION_Y = 130;

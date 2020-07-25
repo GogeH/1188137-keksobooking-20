@@ -87,7 +87,6 @@
     mapPins.appendChild(fragment);
   }
 
-  // Функции активации формы и карты
   function activatePage(objectsAd) {
     var adForm = document.querySelector('.ad-form');
 
@@ -114,7 +113,6 @@
     }
   }
 
-  // Функция отображения карточки объявления при клике по метке на карте
   function onMapPinsClick(evt) {
     var targetMapPin = evt.target;
     var closestMapPin = targetMapPin.closest('.map__pin');
@@ -140,7 +138,6 @@
         }
       }
 
-      // Функция отображения фотографий предложения
       function renderPhotos(mockPhotos, node) {
         var popupPhotos = node.querySelector('.popup__photos');
         var popupPhoto = node.querySelector('.popup__photo');
@@ -156,7 +153,6 @@
         }
       }
 
-      // Функция для отображения или скрытия опций
       function renderFeatures(mockFeatures, node) {
         var popupFeatures = node.querySelector('.popup__features');
         var featuresArray = popupFeatures.children;
@@ -222,14 +218,12 @@
     }
   }
 
-  // Обработчики открытия Popup
   mapPins.addEventListener('keydown', function (evt) {
     if (evt.key === 'Enter') {
       onMapPinsClick(evt);
     }
   });
 
-  // Обработчики закрытия Popup
   document.addEventListener('keydown', function (evt) {
     var mapCard = document.querySelector('.map__card');
     if (evt.key === 'Escape') {
@@ -239,14 +233,12 @@
     }
   });
 
-  // Обработчик с кнопки мыши
   mainPin.addEventListener('mousedown', function (evt) {
     if (evt.button === 0) {
       window.backend.onLoadData(onLoad, errorHandler);
     }
   });
 
-  // Обработчик с кнопки клавиатуры
   mainPin.addEventListener('keydown', function (evt) {
     if (evt.key === 'Enter') {
       window.backend.onLoadData(onLoad, errorHandler);

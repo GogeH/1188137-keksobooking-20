@@ -117,12 +117,10 @@
     var targetMapPin = evt.target;
     var closestMapPin = targetMapPin.closest('.map__pin');
 
-    // Функции отрисовки карточки
     function createAdAndAddToDOM(obj) {
       var objTemplate = document.querySelector('#card').content.querySelector('.map__card');
       var objNode = objTemplate.cloneNode(true);
 
-      // Функция выбора варианта для отображения типа жилья
       function defineTypeHouse(homeType) {
 
         switch (homeType) {

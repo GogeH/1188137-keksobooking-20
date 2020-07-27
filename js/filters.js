@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-    var DEFAULT_VALUE = 'any';
+  var DEFAULT_VALUE = 'any';
   var MAX_NUMBER_DISPLAYED_PINS = 5;
   var LOW_PRICE = 10000;
   var HIGH_PRICE = 50000;

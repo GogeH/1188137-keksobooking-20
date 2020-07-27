@@ -65,6 +65,8 @@
       document.removeEventListener('mousemove', onMouseMove);
       document.removeEventListener('mouseup', onMouseUp);
 
+      onClickPreventDefault(upEvt);
+
       if (dragged) {
         function onClickPreventDefault(clickEvt) {
           clickEvt.preventDefault();
@@ -85,6 +87,6 @@
 
     window.cardInterface = {
       setMapPinToDefaultPosition: setMapPinToDefaultPosition,
-    }
+    };
   });
 })();

@@ -77,6 +77,6 @@
 
   window.avatar = {
     removeHousePhotos: removeHousePhotos,
-    removeHeaderPhotos: removeHeaderPhotos
+    removeHeaderPhotos: removeHeaderPhotos,
   };
 }());

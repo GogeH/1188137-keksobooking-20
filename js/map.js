@@ -2,6 +2,8 @@
 
 (function () {
   var MAIN_PIN_SIZE = 40;
+  var PIN_X = 50;
+  var PIN_Y = 70;
 
   var mapPins = document.querySelector('.map__pins');
   var mapAd = document.querySelector('.map');
@@ -15,6 +17,8 @@
   var roomsNumber = document.querySelector('#room_number');
   var capacityGuests = document.querySelector('#capacity');
   var errorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
+  var adForm = document.querySelector('.ad-form');
+  var main = document.querySelector('main');
 
   var uniqueObjectsAd;
 
@@ -30,18 +34,18 @@
     activatePage(uniqueObjectsAdForRender);
   }
 
-  function errorHandler(errorMessage) {
+  function onError(errorMessage) {
     var message = errorMessageTemplate.cloneNode(true);
     var errorText = message.querySelector('.error__message');
     errorText.textContent = errorMessage;
 
-    document.querySelector('main').appendChild(message);
+    main.appendChild(message);
 
     var errorButton = message.querySelector('.error__button');
-    errorButton.addEventListener('click', errorButtonClickHandler);
+    errorButton.addEventListener('click', onErrorButtonClick);
   }
 
-  function errorButtonClickHandler() {
+  function onErrorButtonClick() {
     document.querySelector('div.error').remove();
   }
 
@@ -65,22 +69,19 @@
     var pattern = document.querySelector('#pin').content.querySelector('.map__pin');
     var fragment = document.createDocumentFragment();
 
-    for (var i = 0; i < uniqueObjects.length; i++) {
-      var PIN_X = 50;
-      var PIN_Y = 70;
+    uniqueObjects.forEach(function (uniqueObject) {
+      var newUnit = pattern.cloneNode(true);
 
-      var newElement = pattern.cloneNode(true);
+      newUnit.style = 'left: ' + (uniqueObject.location.x - PIN_X / 2) + 'px; top: ' + (uniqueObject.location.y - PIN_Y) + 'px;';
 
-      newElement.style = 'left: ' + (uniqueObjects[i].location.x - PIN_X / 2) + 'px; top: ' + (uniqueObjects[i].location.y - PIN_Y) + 'px;';
+      var img = newUnit.querySelector('img');
 
-      var img = newElement.querySelector('img');
+      img.src = uniqueObject.author.avatar;
+      img.alt = uniqueObject.offer.title;
+      img.dataset.id = uniqueObject.id;
 
-      img.src = uniqueObjects[i].author.avatar;
-      img.alt = uniqueObjects[i].offer.title;
-      img.dataset.id = uniqueObjects[i].id;
-
-      fragment.appendChild(newElement);
-    }
+      fragment.appendChild(newUnit);
+    });
 
     removeMapPins();
     removeMapCard();
@@ -88,7 +89,6 @@
   }
 
   function activatePage(objectsAd) {
-    var adForm = document.querySelector('.ad-form');
 
     if (mapAd.classList.contains('map--faded')) {
       mapAd.classList.remove('map--faded');
@@ -101,8 +101,8 @@
       mainPinSizeY = parseInt(mainPin.style.top, 10) + MAIN_PIN_SIZE;
       inputAddress.value = mainPinSizeX + ',' + mainPinSizeY;
 
-      roomsNumber.addEventListener('change', window.adRestrictions.synchronizeFields);
-      capacityGuests.addEventListener('change', window.adRestrictions.synchronizeFields);
+      roomsNumber.addEventListener('change', window.adRestrictions.onFieldsSynchronize);
+      capacityGuests.addEventListener('change', window.adRestrictions.onFieldsSynchronize);
 
       typeHouse.addEventListener('change', function () {
         window.adRestrictions.changeMinPrice(typeHouse.value);
@@ -110,6 +110,13 @@
 
       timeIn.addEventListener('change', window.adRestrictions.onSelectTimeChangeTimeIn);
       timeOut.addEventListener('change', window.adRestrictions.onSelectTimeChangeTimeOut);
+    }
+  }
+
+  function removeActiveClassOfMapPin() {
+    var activeMapPin = mapPins.querySelector('.map__pin--active');
+    if (activeMapPin) {
+      activeMapPin.classList.remove('map__pin--active');
     }
   }
 
@@ -144,25 +151,32 @@
         }
 
         popupPhotos.innerHTML = '';
-        for (var j = 0; j < mockPhotos.offer.photos.length; j++) {
+
+        mockPhotos.offer.photos.forEach(function (photo) {
           var popupImg = popupPhoto.cloneNode(true);
-          popupImg.src = mockPhotos.offer.photos[j];
+          popupImg.src = photo;
           popupPhotos.appendChild(popupImg);
-        }
+        });
       }
 
       function renderFeatures(mockFeatures, node) {
         var popupFeatures = node.querySelector('.popup__features');
         var featuresArray = popupFeatures.children;
 
-        for (var i = 0; i < featuresArray.length; i++) {
-          featuresArray[i].classList.add('hidden');
+        if (mockFeatures.offer.features.length === 0) {
+          popupFeatures.remove();
+
+          return;
         }
 
-        for (var j = 0; j < mockFeatures.offer.features.length; j++) {
-          var popupFeature = popupFeatures.querySelector('.popup__feature--' + mockFeatures.offer.features[j]);
+        Array.from(featuresArray).forEach(function (element) {
+          element.classList.add('hidden');
+        });
+
+        mockFeatures.offer.features.forEach(function (element) {
+          var popupFeature = popupFeatures.querySelector('.popup__feature--' + element);
           popupFeature.classList.remove('hidden');
-        }
+        });
       }
 
       function changePopup() {
@@ -179,7 +193,7 @@
         popupTextAddress.textContent = obj.offer.address;
         popupOfferPrice.textContent = obj.offer.price + '₽/ночь';
         popupOfferType.textContent = defineTypeHouse(obj.offer.type);
-        popupTextCapacity.textContent = obj.offer.rooms + ' комнаты для ' + obj.offer.guest + ' гостей';
+        popupTextCapacity.textContent = obj.offer.rooms + ' комнаты для ' + obj.offer.guests + ' гостей';
         popupTextTime.textContent = 'Заезд после ' + obj.offer.checkin + ',' + ' выезд до ' + obj.offer.checkout;
         popupDescription.textContent = obj.offer.description;
         popupAvatar.src = obj.author.avatar;
@@ -199,20 +213,25 @@
       mapPins.after(fragment);
       var popupClose = document.querySelector('.popup__close');
       var mapCard = document.querySelector('.map__card');
+
       popupClose.addEventListener('click', function () {
         mapCard.parentNode.removeChild(mapCard);
+        removeActiveClassOfMapPin();
       });
     }
 
     if (closestMapPin && !closestMapPin.classList.contains('map__pin--main')) {
+      removeActiveClassOfMapPin();
       removeMapCard();
 
-      var targetElement = uniqueObjectsAd.find(function (offer) {
+      closestMapPin.classList.add('map__pin--active');
+
+      var target = uniqueObjectsAd.find(function (offer) {
         var id = closestMapPin.querySelector('img').dataset.id;
         return id.includes(offer.id);
       });
 
-      renderOffers(targetElement);
+      renderOffers(target);
     }
   }
 
@@ -233,13 +252,13 @@
 
   mainPin.addEventListener('mousedown', function (evt) {
     if (evt.button === 0) {
-      window.backend.onLoadData(onLoad, errorHandler);
+      window.backend.onLoadData(onLoad, onError);
     }
   });
 
   mainPin.addEventListener('keydown', function (evt) {
     if (evt.key === 'Enter') {
-      window.backend.onLoadData(onLoad, errorHandler);
+      window.backend.onLoadData(onLoad, onError);
     }
   });
 

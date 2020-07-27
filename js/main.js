@@ -16,7 +16,7 @@
     inputAddress.setAttribute('readonly', 'readonly');
 
     window.adRestrictions.toggleFieldsAvailability(true);
-    window.adRestrictions.synchronizeFields();
+    window.adRestrictions.onFieldsSynchronize();
 
     window.adRestrictions.changeMinPrice(typeHouse);
   }

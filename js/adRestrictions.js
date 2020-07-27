@@ -1,22 +1,27 @@
 'use strict';
 
 (function () {
+  var BUNGALO_MIN_PRICE = 0;
+  var FLAT_MIN_PRICE = 1000;
+  var HOUSE_MIN_PRICE = 5000;
+  var PALACE_MIN_PRICE = 10000;
+
   var timeIn = document.querySelector('#timein');
   var timeOut = document.querySelector('#timeout');
   var typeHouse = document.querySelector('#type');
   var roomsNumber = document.querySelector('#room_number');
   var capacityGuests = document.querySelector('#capacity');
+  var priceDom = document.querySelector('#price');
 
   function toggleFieldsAvailability(isLocked) {
     var fieldsetsAndSelects = document.querySelectorAll('fieldset, select');
 
-    for (var i = 0; i < fieldsetsAndSelects.length; i++) {
-      fieldsetsAndSelects[i].disabled = isLocked;
-    }
+    fieldsetsAndSelects.forEach(function (element) {
+      element.disabled = isLocked;
+    });
   }
 
   function changeMinPrice() {
-    var priceDom = document.querySelector('#price');
     var price = computeMinPrice();
     priceDom.min = price.min;
     priceDom.placeholder = price.placeholder;
@@ -24,14 +29,14 @@
     function computeMinPrice() {
       switch (typeHouse.value) {
         case 'bungalo':
-          return {placeholder: 0, min: 0};
+          return {placeholder: BUNGALO_MIN_PRICE, min: BUNGALO_MIN_PRICE};
         default:
         case 'flat':
-          return {placeholder: 1000, min: 1000};
+          return {placeholder: FLAT_MIN_PRICE, min: FLAT_MIN_PRICE};
         case 'house':
-          return {placeholder: 5000, min: 5000};
+          return {placeholder: HOUSE_MIN_PRICE, min: HOUSE_MIN_PRICE};
         case 'palace':
-          return {placeholder: 10000, min: 10000};
+          return {placeholder: PALACE_MIN_PRICE, min: PALACE_MIN_PRICE};
       }
     }
   }
@@ -44,7 +49,7 @@
     timeIn.value = timeOut.value;
   }
 
-  function synchronizeFields() {
+  function onFieldsSynchronize() {
     var guestRoomsMap = {
       1: ['1'],
       2: ['1', '2'],
@@ -70,7 +75,7 @@
   window.adRestrictions = {
     toggleFieldsAvailability: toggleFieldsAvailability,
     changeMinPrice: changeMinPrice,
-    synchronizeFields: synchronizeFields,
+    onFieldsSynchronize: onFieldsSynchronize,
     onSelectTimeChangeTimeOut: onSelectTimeChangeTimeOut,
     onSelectTimeChangeTimeIn: onSelectTimeChangeTimeIn,
   };

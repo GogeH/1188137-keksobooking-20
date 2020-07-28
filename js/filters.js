@@ -13,23 +13,30 @@
   var housingGuestsSelect = filterForm.querySelector('#housing-guests');
   var housingFeaturesSelect = filterForm.querySelector('#housing-features');
 
+  var filteringFunctions = [filterByType, filterByPrice, filterByRooms, filterByGuests, filterByFeatures];
+
+
+  function filterOffer(offer) {
+    return filteringFunctions.every(function (filteringFunction) {
+      return filteringFunction(offer);
+    });
+  }
 
   function makeFilterAds(offers) {
     var filteredOffers = [];
 
-    offers.every(function (offer) {
-      var isValidOffer = filterByType(offer)
-                         && filterByPrice(offer)
-                         && filterByRooms(offer)
-                         && filterByGuests(offer)
-                         && filterByFeatures(offer);
+    for (var i = 0; i < offers.length; i++) {
+      var offer = offers[i];
+      var isValidOffer = filterOffer(offer);
 
-      if (isValidOffer) {
+      if (isValidOffer && MAX_NUMBER_DISPLAYED_PINS !== 0) {
         filteredOffers.push(offer);
       }
 
-      return filteredOffers.length < MAX_NUMBER_DISPLAYED_PINS;
-    });
+      if (filteredOffers.length === MAX_NUMBER_DISPLAYED_PINS) {
+        break;
+      }
+    }
 
     return filteredOffers;
   }
